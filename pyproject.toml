@@ -1,0 +1,23 @@
+[project]
+name = "bitcli-mcp"
+version = "0.1.0"
+description = "Official Model Context Protocol server for BitCLI. Real-time crypto order flow and quantitative indicators."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "BitCLI Team", email = "team@bitcli.io" }
+]
+keywords = ["mcp", "model-context-protocol", "crypto", "trading", "orderflow", "hft", "ai-agents"]
+
+dependencies = [
+    "aiohttp>=3.9.0",
+    "aiohttp-cors>=0.8.0",
+    "uvloop>=0.19.0"
+]
+
+[project.urls]
+Homepage = "https://bitcli.io"
+Documentation = "https://docs.bitcli.io"
+Repository = "https://github.com/BitCLI-io/bitcli-mcp-server"
+Issues = "https://github.com/BitCLI-io/bitcli-mcp-server/issues"
