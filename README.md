@@ -1,10 +1,10 @@
 # 🤖 BitCLI Model Context Protocol (MCP) Server
 
 [![Model Context Protocol](https://img.shields.io/badge/MCP-Supported-blue?style=for-the-badge)](https://modelcontextprotocol.io/)
-[![Status](https://img.shields.io/badge/Status-Public_Alpha-10b981?style=for-the-badge)](#)
+[![Glama TDQS Grade](https://img.shields.io/badge/Glama_TDQS-4.6%2F5.0%20(A)-10b981?style=for-the-badge)](https://glama.ai)
 [![BitCLI](https://img.shields.io/badge/Powered_by-BitCLI_HFT_Engine-151c2c?style=for-the-badge)](https://bitcli.io)
 
-The official **SSE-based MCP server** for [BitCLI](https://bitcli.io). 
+The official **Streamable HTTP & SSE MCP server** for [BitCLI](https://bitcli.io). 
 
 Connect your autonomous AI trading agents, **Cursor**, or **Claude Desktop** to sub-millisecond crypto order flow, liquidation cascades, and CVD anomalies. 
 
@@ -13,28 +13,26 @@ Connect your autonomous AI trading agents, **Cursor**, or **Claude Desktop** to 
 
 ## 🚀 Available Tools
 
-- `get_market_snapshot`: Instantly scan 1,650+ perpetual futures across Binance, Bybit, and Hyperliquid. Get the Top N coins sorted by `rvol_5m` (Whale spikes), `funding_rate` (Squeezes), or `natr_1h` (Volatility).
-- `get_ta_consensus`: Get aggregated Trend Bias, RSI, CVD Slope, and ATR for a specific coin without downloading a single candlestick.
-- `create_alert` *(Beta)*: Register an in-memory high-frequency trigger. The server will push an asynchronous SSE event to wake up your agent when the condition is met (eliminates API polling).
+- `get_market_snapshot`: Scan 1,650+ perpetual futures across Binance, Bybit, and Hyperliquid. Get Top N coins sorted by `rvol_5m` (Whale spikes), `funding_rate` (Squeezes), or `oi_change_1h`.
+- `get_ta_consensus`: Retrieve cross-exchange aggregated Trend Bias (EMA20), RSI14, 1h ATR volatility, and CVD order flow for a target asset.
+- `create_alert`: Register an in-memory high-frequency alert using unified BitCLI syntax (`btc 95k`, `* vol 15m x4`, `* liq z3`). Pushes an asynchronous event via SSE when triggered.
+- `list_alerts`: Audit all active in-memory triggers owned by the agent with remaining TTL.
+- `cancel_alert`: Unregisters and purges an active trigger from the C++ HFT engine memory.
 
-## ⚡ Quickstart: Cursor IDE
+## 🌐 Quickstart: Cursor IDE & Modern Clients
 
-BitCLI MCP is hosted on the cloud. You do not need to run anything locally.
+BitCLI MCP is cloud-hosted. No local installation required.
 
-1. Open **Cursor Settings** (gear icon) -> **Features** -> **MCP**.
+- **Endpoint URL:** `https://mcp.bitcli.io/mcp`
+
+### In Cursor:
+1. Open **Cursor Settings** -> **Features** -> **MCP**.
 2. Click **+ Add New MCP Server**.
-3. Configure it as follows:
-   - **Name:** `BitCLI`
-   - **Type:** `sse`
-   - **URL:** `https://mcp.bitcli.io/mcp/sse`
-4. Click **Save**. Cursor will instantly fetch the tools.
+3. Set Type to `sse` or `streamable` and use URL: `https://mcp.bitcli.io/mcp`
 
-Now, open Cursor Chat and type:
-> *"Analyze the crypto market using BitCLI. Find the top 3 coins with the highest RVOL and tell me if their CVD is bullish or bearish."*
+## 📦 Quickstart: Claude Desktop (Local Bridge)
 
-## ⚡ Quickstart: Claude Desktop
-
-Add the following to your `claude_desktop_config.json` (located at `~/Library/Application Support/Claude/` on macOS or `%APPDATA%\Claude\` on Windows):
+Add the following to your `claude_desktop_config.json`:
 
 ```json
 {
