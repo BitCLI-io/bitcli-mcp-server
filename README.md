@@ -22,6 +22,28 @@ Connect your autonomous AI agents (Cursor, Claude Desktop, AutoGPT, LangChain) d
 - **Event-Driven HFT Alerts:** Register tick-by-tick triggers (`btc 95k`, `* vol 15m x4`). The server will push asynchronous SSE events to wake up your agent the millisecond the condition is met.
 - **M2M x402 Micro-payments:** Fully autonomous Pay-Per-Request economy. Agents can fund their own sessions using USDC on the Base network.
 
+## 📉 The BCT Data Standard (Token Optimization)
+
+Traditional REST APIs (like Binance FAPI or CCXT) were designed for machines parsing JSON, not for Large Language Models (LLMs) paying per token. 
+
+BitCLI introduces the **BCT (BitCLI Compact Candlesticks)** specification to deliver maximum trading intelligence (OHLCV, Order Flow, Meta Indicators) using the absolute minimum number of BPE tokens.
+
+### Benchmark: BCT vs The Industry
+*Fetching 100 live 5m candles for BTCUSDT (Measured via OpenAI `o200k_base` tokenizer)*
+
+| Data Source | Payload Architecture | Tokens (100 bars) | Cost (10k reqs) | vs CCXT Baseline |
+| :--- | :--- | :---: | :---: | :--- |
+| **CCXT Library (Python)** | OHLC + BaseVol (6 fields per row) | 3,624 | $90.60 | *Industry Baseline* |
+| **BitCLI MCP (Strict Match)** | OHLC + USDVol (5 fields + Relative TS) | **2,605** | **$65.12** | **🔥 28.1% less tokens** |
+| **BitCLI MCP (Full Power)** | **OHLC + USDVol + CVD Delta + Meta** | **2,841** | **$71.03** | **🔥 21.6% less tokens** |
+| **Bybit V5 REST API** | Named JSON Objects `{"open": ...}` | 6,406 | $160.15 | ⚠️ +76.8% token bloat |
+| **Binance FAPI REST** | Raw 12-element arrays | 7,128 | $178.20 | ⚠️ +96.7% token bloat |
+
+**How BCT achieves this:**
+1. **Zero-Token Temporal Grids:** We strip absolute 13-digit Unix timestamps. The agent calculates time deterministically using a relative index (`-N+1 ... 0`) and a `@BCT` header base time.
+2. **Kilo-Scaled Volumes:** Volumes and Deltas are converted to Quote Currency (USD) and scaled to thousands (`kUSD`), eliminating decimals and leading zeros.
+3. **Server-Side Math:** Indicators (RSI, EMA, MACD, ATR, BB) are computed on our servers using a 3,000-bar warmup padding to guarantee 100% TradingView parity, saving your agent from writing Python scripts and doing internal math.
+
 ## 🔌 Connection Endpoints
 
 BitCLI supports two transport modes. Configure your MCP client accordingly:
@@ -53,6 +75,7 @@ BitCLI supports two transport modes. Configure your MCP client accordingly:
 ## 🛠 Available Tools
 
 * `get_market_snapshot`: Find top outliers across all exchanges (RVOL, Funding, nATR).
+* `get_bct_candles`: Fetch token-optimized historical OHLCV, CVD delta, and server-side calculated indicators.
 * `get_ta_consensus`: Deep-dive technical consensus for a single asset (RSI, EMA bias, CVD slope).
 * `create_alert`: Set an HFT condition in the C++ engine (e.g. `sol +3% 5m`, `eth cvd div 15m`).
 * `list_alerts`: List active triggers for your session.
