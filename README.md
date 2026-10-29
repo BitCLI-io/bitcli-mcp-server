@@ -1,12 +1,3 @@
-# 🤖 BitCLI Model Context Protocol (MCP) Server
-
-[![Model Context Protocol](https://img.shields.io/badge/MCP-Supported-blue?style=for-the-badge)](https://modelcontextprotocol.io/)
-[![Glama TDQS Grade](https://img.shields.io/badge/Glama_TDQS-4.6%2F5.0%20(A)-10b981?style=for-the-badge)](https://glama.ai)
-[![BitCLI](https://img.shields.io/badge/Powered_by-BitCLI_HFT_Engine-151c2c?style=for-the-badge)](https://bitcli.io)
-
-
-
-
 <div align="center">
 
 # BitCLI Model Context Protocol (MCP) Server
@@ -161,8 +152,3 @@ The exact same syntax works whether typed into Telegram or passed into the MCP `
 
 ## 📄 License
 This MCP specification and client wrappers are open-source under the [MIT License](LICENSE).
-
-
-
-## 📚 Documentation
-For complete syntax guides and API documentation, visit: **[docs.bitcli.io/mcp](https://docs.bitcli.io/mcp)**
