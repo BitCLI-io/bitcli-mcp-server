@@ -3,6 +3,7 @@ name: bitcli
 description: Real-time crypto futures order flow, BCT-30 matrix candles, and HFT alerts across Binance, Bybit, and Hyperliquid.
 metadata:
   author: BitCLI
+  icon: https://bitcli.io/logo.png
 ---
 
 # BitCLI Skill
