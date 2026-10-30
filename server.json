@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.BitCLI-io/bitcli-mcp-server",
+  "description": "Institutional crypto futures order flow, BCT-30 matrix candles, and HFT alerts across Binance, Bybit, and Hyperliquid.",
+  "title": "BitCLI",
+  "repository": {
+    "url": "https://github.com/BitCLI-io/bitcli-mcp-server",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.bitcli.io/mcp"
+    },
+    {
+      "type": "sse",
+      "url": "https://mcp.bitcli.io/mcp/sse"
+    }
+  ]
+}
